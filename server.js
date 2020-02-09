@@ -17,3 +17,8 @@ MongoClient.connect('mongodb+srv://user:password1234@cluster0-pjbde.mongodb.net/
   db = client.db('MuDB')
   }
 });
+
+// SHOW LOG THAT NODE SERVER STARTED
+app.listen(PORT, () => {
+    console.log(`Server is listening on port: ${PORT}`);
+   });
