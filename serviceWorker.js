@@ -1,14 +1,14 @@
 var cacheName = 'v1';
 var cacheFiles = [
-    './',
-    './pages/userBoard.html',
-    './pages/adminBoard.html',
-    './pages/login.html',
-    './pages/register.html',
-    './app.js',
-    './manifest.json',
-    './server.js',
-    './serviceWorker.js',
+    '../CW2MongoNodeExpress.PWA/',
+    '../CW2MongoNodeExpress.PWA/pages/userBoard.html',
+    '../CW2MongoNodeExpress.PWA/pages/adminBoard.html',
+    '../CW2MongoNodeExpress.PWA/pages/login.html',
+    '../CW2MongoNodeExpress.PWA/pages/register.html',
+    '../CW2MongoNodeExpress.PWA/app.js',
+    '../CW2MongoNodeExpress.PWA/manifest.json',
+    '../CW2MongoNodeExpress.PWA/server.js',
+    '../CW2MongoNodeExpress.PWA/serviceWorker.js',
     'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/vue@2.6.11'
     

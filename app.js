@@ -1,7 +1,7 @@
 if  ('serviceWorker' in navigator) {
 
     navigator.serviceWorker
-        .register('./serviceWorker.js')
+        .register('../CW2MongoNodeExpress.PWA/serviceWorker.js')
         .then(function(registration) {
             console.log("Service Worker Registered");
         })
