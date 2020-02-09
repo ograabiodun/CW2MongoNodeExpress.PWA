@@ -2,6 +2,9 @@ const express = require("express");
 const session = require("client-sessions");
 const PORT = 1234;
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Retrieve
 var db
@@ -95,6 +98,60 @@ app.get("/allcourses", (req, res) => {
     })
     
     });
+
+    //show all comments 
+app.get("/allcomments", (req, res) => {
+
+    const dbo = p.db("pwaCW2");
+    
+    dbo.collection('comments').find().toArray(function(err, results) {
+     
+    if(results)
+      {
+    
+      console.log(results.toArray)
+    
+    // to see the first element
+      res.json(results)
+    
+      }
+    
+    else
+     console.log(err)
+    
+      // send HTML file populated with quotes here
+    })
+    
+    });
+
+    ////user and Admin register 1
+app.post('/form_decision', (req, res) => {
+    console.log('usertype:', req.body['usertype']);
+    console.log('Got Name:', req.body['name']);
+  
+  var u_name = req.body['name'];
+  var u_pass = req.body['password'];
+  var u_email = req.body['email'];
+  var u_usertype = req.body['usertype'];
+  
+  //mongo connection for the registeration
+  const dbo1 = p.db("pwaCW2");
+  
+  dbo1.collection('userdetails').save({name: u_name, email:u_email ,password:u_pass, usertype:u_usertype}, (err, result) => {
+     if (err) return console.log(err)
+  
+     console.log('saved to database')
+     res.redirect('/user')
+  
+   })
+  
+  //user and Admin register 2
+  if(u_usertype=='user')
+    res.redirect('/user_success');
+  
+  else if (u_usertype=='provider')
+    res.redirect('/search');
+  });
 
 // SHOW LOG THAT NODE SERVER STARTED
 app.listen(PORT, () => {

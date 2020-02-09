@@ -6,7 +6,39 @@
     <title>Login Page</title>
 </head>
 <body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
     
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src=".\images\logo.png" id="icon" alt="User Icon" />
+            </div>
     
+            <!-- Login Form -->
+    
+            <form method="POST" action="/logindecision">
+                <span>
+                    <input name='email' type='email' class="fadeIn second" placeholder="e-mail">
+                    <input name='password' type='password' class="fadeIn third" placeholder="password">
+                    <br>
+                    <input type="submit" name="logintype" id="" value="login">
+                    <br>
+            </form>
+                    <p>Do not have an account?<a href="/sign_up">Register</a></p>
+                    
+                    <!--<input type="submit" class="fadeIn fourth" v-on:click='signin' value="Log in"/>
+                    <input type="submit" class="fadeIn fourth" v-on:click='signup' value="Register" />-->
+        
+                </span>
+            
+    
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password?</a>
+            </div>
+    
+        </div>
+    </div>        
 </body>
 </html>
