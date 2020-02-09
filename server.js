@@ -59,6 +59,18 @@ app.get("/showallrecord", (req, res) => {
     
     });
 
+    //adminBoard page
+app.get("/search", (req, res) => {
+    res.sendFile(__dirname + '/adminBoard.html');
+  
+  });
+
+  //userBoard page
+app.get("/user_success", (req, res) => {
+    res.sendFile(__dirname + '/userBoard.html');
+  
+  });
+
 // SHOW LOG THAT NODE SERVER STARTED
 app.listen(PORT, () => {
     console.log(`Server is listening on port: ${PORT}`);
