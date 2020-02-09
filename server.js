@@ -71,6 +71,31 @@ app.get("/user_success", (req, res) => {
   
   });
 
+  //courses search 
+app.get("/allcourses", (req, res) => {
+
+    const dbo = p.db("MuDB");
+    
+    dbo.collection('courses').find().toArray(function(err, results) {
+     
+    if(results)
+      {
+    
+      console.log(results.toArray)
+    
+    // to see the first element
+      res.json(results)
+    
+      }
+    
+    else
+     console.log(err)
+    
+      // send HTML file populated with quotes here
+    })
+    
+    });
+
 // SHOW LOG THAT NODE SERVER STARTED
 app.listen(PORT, () => {
     console.log(`Server is listening on port: ${PORT}`);
