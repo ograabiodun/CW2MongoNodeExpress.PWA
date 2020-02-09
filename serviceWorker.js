@@ -1,18 +1,17 @@
 var cacheName = 'v1';
 var cacheFiles = [
-    '/',
-    '/pages/userBoard.html',
-    '/pages/adminBoard.html',
-    '/pages/login.html',
-    '/pages/register.html',
-    '/app.js',
-    '/manifest.json',
-    '/server.js',
-    '/serviceWorker.js',
-    '/README.md',
+    './',
+    './pages/userBoard.html',
+    './pages/adminBoard.html',
+    './pages/login.html',
+    './pages/register.html',
+    './app.js',
+    './manifest.json',
+    './server.js',
+    './serviceWorker.js',
     'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-    'https://cdn.jsdelivr.net/npm/vue@2.6.11',
-    ''
+    'https://cdn.jsdelivr.net/npm/vue@2.6.11'
+    
 ]
 
 
