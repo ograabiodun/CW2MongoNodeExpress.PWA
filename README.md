@@ -1,2 +1,2 @@
-# CW2MongoNodeExpress.PWA
-Progressive web app
+# CW2MongoExpressVueNode.PWA
+Progressive web app 
