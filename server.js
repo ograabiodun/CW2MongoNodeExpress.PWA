@@ -3,6 +3,7 @@ const session = require("client-sessions");
 const PORT = 1234;
 const app = express();
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -62,18 +63,6 @@ app.get("/showallrecord", (req, res) => {
     
     });
 
-    //adminBoard page
-app.get("/search", (req, res) => {
-    res.sendFile(__dirname + '/pages/adminBoard.html');
-  
-  });
-
-  //userBoard page
-app.get("/pages/userBoard", (req, res) => {
-    res.sendFile(__dirname + '/pages/userBoard.html');
-  
-  });
-
   //courses search 
 app.get("/allcourses", (req, res) => {
 
@@ -124,6 +113,14 @@ app.get("/allcomments", (req, res) => {
     
     });
 
+
+    /* GET HTML FILE */
+app.get('/pages/register', function(req, res) {
+
+    res.sendFile(__dirname + '/pages/register.html') //create a index file 
+  
+  });
+
     ////user and Admin register 1
 app.post('/form_decision', (req, res) => {
     console.log('usertype:', req.body['usertype']);
@@ -141,7 +138,7 @@ app.post('/form_decision', (req, res) => {
      if (err) return console.log(err)
   
      console.log('saved to database')
-     res.redirect('/user')
+     res.redirect('/form_decision')
   
    })
   
@@ -157,29 +154,34 @@ app.post('/form_decision', (req, res) => {
 
 app.get('/json', function(req, res) {
 
-    var at = JSON.stringify({0: req.session.user, 1:req.session.user}
+    var at = JSON.stringify({0: req.session.user, 1: req.session.user}
       )
   
     res.json({"foo": "bar"});
   
   });
 
-  /* GET HTML FILE */
-app.get('/pages/register', function(req, res) {
+  //adminBoard page
+app.get("/pages/adminBoard", (req, res) => {
+    res.sendFile(__dirname + '/pages/adminBoard.html');
+  
+  });
 
-    res.sendFile(__dirname + '/pages/register.html') //create a index file 
+  //userBoard page
+app.get("/pages/userBoard", (req, res) => {
+    res.sendFile(__dirname + '/pages/userBoard.html');
   
   });
 
   /* GET HTML FILE */
-app.get('/pages/userBoard', function(req, res) {
+// app.get('/pages/userBoard', function(req, res) {
 
-    res.sendFile(__dirname + '/pages/userBoard.html') //create a index file 
+//     res.sendFile(__dirname + '/pages/userBoard.html') //create a index file 
     
-    //res.send("User Page");   
-    });
+//     //res.send("User Page");   
+//     });
 
-    app.post('/pages/userBoard', (req, res) => {
+    app.post('/loginMsg', (req, res) => {
         console.log('Got Name:', req.body['name']);
         console.log('Got ID:', req.body['email']);
       
@@ -195,29 +197,23 @@ app.get('/pages/userBoard', function(req, res) {
       var query = { email: u_email };
       
         dbo.collection('userdetails').find(query).toArray(function(err, results) {
-         
-      
-      
-      
+
         if(results.length != 0) //User exists
           {
           
         // to see the first element
           // res.send('user found' +JSON.stringify(results))
-        
-      
-      
+
           req.session.user = results[0].name;   // Saving User details in Sessions to show name across all pages
-      
-      
+          
           console.log('user found ' + results[0].name);
             //redirect
       
                 //redirect - admin and normal user
-              if (results[0].adminuser == true)
-                  res.redirect('/pages/adminBoard')
-              else if (results[0].adminuser == false)
-                  res.redirect('/pages/userBoard.html')
+                if (results[0].usertype == "provider")
+                res.redirect('/pages/adminBoard')
+            else if (results[0].usertype == "user")
+                res.redirect('/pages/userBoard')
       
       
           }
@@ -295,6 +291,7 @@ app.post('/update', (req, res) => {
       dbo2.collection("courses").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
+        res.redirect('/pages/adminBoard')
        });
     
     });
@@ -313,6 +310,7 @@ app.post('/delete', (req, res) => {
       dbo2.collection("courses").deleteOne(myquery, function(err, res) {
         if (err) throw err;
         console.log("1 course deleted");
+        res.redirect('/pages/adminBoard')
        });
     
     });
@@ -326,18 +324,69 @@ app.post('/delete', (req, res) => {
   var u_topic = req.body['topic'];
   var u_location = req.body['location'];
   var u_price = req.body['price'];
+  var u_image = req.body['image'];
   
   //mongo connection for the registeration
   const dbo1 = p.db("MuDB");
   
-  dbo1.collection('courses').save({topic: u_topic, location:u_location ,price:u_price}, (err, result) => {
+  dbo1.collection('courses').insertOne({topic: u_topic, location:u_location ,price:u_price, image:u_image}, (err, result) => {
      if (err) return console.log(err)
-  
-     console.log('1 course saved to database')
-  });
-  
-  });
 
+    console.log('1 course saved to database')
+    res.redirect('/pages/adminBoard')
+
+    // 5 is the limit I've defined for number of uploaded files at once
+    // 'multiple_images' is the name of our file input field
+    // let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).array('multiple_images', 2);
+    // upload(req, res, function(err) {
+    //     if (req.fileValidationError) {
+    //         return res.send(req.fileValidationError);
+    //     }
+    //     else if (!req.file) {
+    //         return res.send('Please select an image to upload');
+    //     }
+    //     else if (err instanceof multer.MulterError) {
+    //         return res.send(err);
+    //     }
+    //     else if (err) {
+    //         return res.send(err);
+    //     }
+
+    //     let result = "You have uploaded these images: <hr />";
+    //     const files = req.files;
+    //     let index, len;
+
+    //     // Loop through all the uploaded images and display them on frontend
+    //     for (index = 0, len = files.length; index < len; ++index) {
+    //         result += `<img src="${files[index].path}" width="200" style="margin-right: 20px;">`;
+    //     }
+    //     result += '<hr/><a href="./">Upload more images</a>';
+    //     res.send(result);
+    // });
+     
+  });
+  
+  });
+//   var storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, courses);
+//     },
+//     filename: (req, file, cb) => {
+//       console.log(file);
+//       var filetype = '';
+//       if(file.mimetype === 'image/gif') {
+//         filetype = 'gif';
+//       }
+//       if(file.mimetype === 'image/png') {
+//         filetype = 'png';
+//       }
+//       if(file.mimetype === 'image/jpeg') {
+//         filetype = 'jpg';
+//       }
+//       cb(null, 'image-' + Date.now() + '.' + filetype);
+//     }
+// });
+// var upload = multer({storage: storage});
 
 
 // SHOW LOG THAT NODE SERVER STARTED
