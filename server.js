@@ -3,9 +3,41 @@ const session = require("client-sessions");
 const PORT = 1234;
 const app = express();
 const bodyParser = require('body-parser');
+const webpush = require('web-push');
 const multer = require('multer');
+const path = require('path');
+
+//set static path
+app.use(express.static(path.join(__dirname, 'pages')));
+
+const publicVapidKey =
+'BFKiYqEmIVbUCLMwukoRwdIYXqDk1Ux_iPG4r_ZSnpGEHCYnVkZQCDk5SgWzJ4fnRvLzXBshuu3ykJ2kmJoCOGI';
+
+const privateVapidKey =
+'HtgpxpXCT_FRbNdM6L_jpnGKaPFyk18hh2O27SQdyAM';
+
+webpush.setVapidDetails('mailto:test@test.com', publicVapidKey, privateVapidKey);
+
+//subscribe Route
+app.post('/subscribe', (req, res) => {
+  // Get pushSubscrition object
+  const subscription = req.body;
+
+  //send status 201 -resourse created
+  res.statust(201).json({});
+
+  //create payload
+  const payload = JSON.stringify({title: 'Push Test'});
+
+  //pass object into sendNotification
+  webpush
+    .sendNotification(subscription, payload)
+    .catch(err => console.error(err));
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 // Retrieve
 var db
