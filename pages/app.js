@@ -3,7 +3,7 @@ const publicVapidKey =
 
 //check for service worker
 if ("serviceWorker" in navigator) {
-  send().catch(err => console.log(err));
+  send().catch(err => console.log (err));
 }
 
 // Register SW, Register push and send push
@@ -11,17 +11,13 @@ async function send() {
   //register service worker
   console.log("registering SW");
   const register = await navigator.serviceWorker.register(
-    "./serviceWorker.js",
-    {
-      scope: "./"
-    }
+    "/serviceWorker.js"
   );
   console.log("Service Worker Registered...");
 
   //Register Push
   console.log("Registering push...");
-  const subscription = await register.pushManager.subscribe({
-    userVisibileOnly: true,
+  const subscription = await register.pushManager.subscribe({userVisibleOnly:true,
     applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
   });
   console.log("Push Registered...");

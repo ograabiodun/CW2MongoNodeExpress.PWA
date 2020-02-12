@@ -242,10 +242,17 @@ app.get("/pages/userBoard", (req, res) => {
             //redirect
       
                 //redirect - admin and normal user
-                if (results[0].usertype == "provider")
-                res.redirect('/pages/adminBoard')
-            else if (results[0].usertype == "user")
-                res.redirect('/pages/userBoard')
+                if (results[0].usertype == "provider"){
+                  res.redirect('/pages/adminBoard');
+                }                
+            else if (results[0].usertype == "user"){
+              res.redirect('/pages/userBoard');
+            }
+                
+            //     else if (results[0].adminuser == true)
+            //     res.redirect('pages/adminBoard')
+            // else if (results[0].adminuser == false)
+            //     res.redirect('/pages/userBoard')
       
       
           }
@@ -364,8 +371,11 @@ app.post('/delete', (req, res) => {
   dbo1.collection('courses').insertOne({topic: u_topic, location:u_location ,price:u_price, image:u_image}, (err, result) => {
      if (err) return console.log(err)
 
-    console.log('1 course saved to database')
-    res.redirect('/pages/adminBoard')
+    console.log('1 course saved to database');
+
+    // to see the first element
+    res.json(result);
+    res.redirect('/pages/adminBoard');
 
     // 5 is the limit I've defined for number of uploaded files at once
     // 'multiple_images' is the name of our file input field

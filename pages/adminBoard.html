@@ -149,7 +149,7 @@
               this.courses = courses;
             });
           });
-          fetch("/add").then(response => {
+          ("/add").then(response => {
             return response.json().then(courses => {
               this.courses = courses.reverse();
             });
