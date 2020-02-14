@@ -10,11 +10,9 @@ const path = require('path');
 //set static path
 app.use(express.static(path.join(__dirname, 'pages')));
 
-const publicVapidKey =
-'BFKiYqEmIVbUCLMwukoRwdIYXqDk1Ux_iPG4r_ZSnpGEHCYnVkZQCDk5SgWzJ4fnRvLzXBshuu3ykJ2kmJoCOGI';
+const publicVapidKey ='BFKiYqEmIVbUCLMwukoRwdIYXqDk1Ux_iPG4r_ZSnpGEHCYnVkZQCDk5SgWzJ4fnRvLzXBshuu3ykJ2kmJoCOGI';
 
-const privateVapidKey =
-'HtgpxpXCT_FRbNdM6L_jpnGKaPFyk18hh2O27SQdyAM';
+const privateVapidKey ='HtgpxpXCT_FRbNdM6L_jpnGKaPFyk18hh2O27SQdyAM';
 
 webpush.setVapidDetails('mailto:test@test.com', publicVapidKey, privateVapidKey);
 
