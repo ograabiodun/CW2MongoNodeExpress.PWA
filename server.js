@@ -14,7 +14,7 @@ const publicVapidKey ='BFKiYqEmIVbUCLMwukoRwdIYXqDk1Ux_iPG4r_ZSnpGEHCYnVkZQCDk5S
 
 const privateVapidKey ='HtgpxpXCT_FRbNdM6L_jpnGKaPFyk18hh2O27SQdyAM';
 
-webpush.setVapidDetails('mailto:test@test.com', publicVapidKey, privateVapidKey);
+webpush.setVapidDetails('mailto:ograabiodun@gmail.com', publicVapidKey, privateVapidKey);
 
 //subscribe Route
 app.post('/subscribe', (req, res) => {
@@ -64,7 +64,7 @@ app.use(session({
 
 //login page/ default page
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + '//index.html');
+    res.sendFile(__dirname + '/index.html');
   
   });
 
