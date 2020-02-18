@@ -3,7 +3,6 @@
   "short_name": "CW2PWA.Serviceworker",
   "name": "MEVN",
   "description": "Progressive web app",
-  
   "icons": [
     {
       "src": "./icons/icon-96.png",
